@@ -1,0 +1,25 @@
+{
+  "name": "smarttshipping/smart-shipping",
+  "description": "extension for magento 2",
+  "type": "magento2-module",
+  "version": "0.0.3",
+  "homepage": "https://gitlab.com/lalit.magneto/magento2-Smarttshippingt-shipping",
+   "license": [
+    "OSL-3.0",
+    "AFL-3.0"
+  ],
+  "repositories": {"type": "vcs","url": "https://gitlab.com/lalit.magneto/magento2-Smarttshippingt-shipping"},
+  "require": {
+    "php": ">=7.3|^8.1"
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Smarttshipping\\Shipping\\": ""
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}

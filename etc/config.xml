@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Store/etc/config.xsd">
+	<default>
+        <carriers>
+            <smartshipping>
+                <active>1</active>
+                <sallowspecific>0</sallowspecific>
+				<model>Smarttshipping\Shipping\Model\Carrier\Smartshipping</model>
+                <name>Smart Shipping</name>
+                <price>0.00</price>
+                <title>Smart Shipping</title>
+               <specificerrmsg>Smart Shipping is not available for your area. Please contact us.</specificerrmsg>
+            </smartshipping>
+        </carriers>
+    </default>
+</config>

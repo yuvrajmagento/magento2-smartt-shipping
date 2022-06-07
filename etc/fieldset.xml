@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/Object/etc/fieldset.xsd">
+    <scope id="global">
+        <fieldset id="quote_convert_item">
+            <field name="shipping_height">
+                <aspect name="to_order_item" />
+            </field>
+            <field name="shipping_length">
+                <aspect name="to_order_item" />
+            </field>
+            <field name="shipping_width">
+                <aspect name="to_order_item" />
+            </field>
+            <field name="shipping_weight">
+                <aspect name="to_order_item" />
+            </field>
+            <field name="package_id">
+                <aspect name="to_order_item" />
+            </field>
+            <field name="recalculate_qty">
+                <aspect name="to_order_item" />
+            </field>
+        </fieldset>
+    </scope>
+</config>

@@ -1,0 +1,394 @@
+<?php
+
+?>
+<div id="popup-modal" style="display: none">
+    <form id="order-view-add-quote-form" autocomplete="off" data-mage-init='{"validation": {}}' method="post">
+        <div class="row">
+            <input type="hidden" name="current_order_id" value="<?php echo $block->getCurrentOrderId() ?>" />
+            <div class="main-col" id="maintable"> 
+                <div class="default_package">
+                <div class="admin__field custom_div_option">
+                    <label for="qty" class="admin__field-label"><?= $block->escapeHtml(__('Package')); ?></label>
+                    <div class="admin__field-control">
+                        <select name="package_id[]" value="" class="admin__control-text input-text required-entry" data-validate="{required:true, 'validate-number':true}" >
+                            <?php
+                            foreach ($block->getPackageId() as $value) {?>
+                                   <option value="<?php echo $value['value']; ?>"><?php echo $value['label']; ?></option>
+                                <?php } ?>
+                            ?>
+                        </select> 
+                    </div>
+                </div>
+                <div class="admin__field custom_div">
+                    <label for="qty" class="admin__field-label"><?= $block->escapeHtml(__('Qty')); ?></label>
+                    <div class="admin__field-control">
+                        <input name="qty[]" type="text" class="admin__control-text input-text required-entry" data-validate="{required:true, 'validate-number':true}" >
+                    </div>
+                </div>
+                <div class="admin__field custom_div">
+                    <label for="weight" class="admin__field-label"><?= $block->escapeHtml(__('Weight')); ?></label>
+                    <div class="admin__field-control">
+                        <input name="weight[]" type="text" class="admin__control-text input-text required-entry" data-validate="{required:true, 'validate-number':true}" >
+                    </div>
+                </div>
+                <div class="admin__field custom_div">
+                    <label for="length" class="admin__field-label"><?= $block->escapeHtml(__('Length')); ?></label>
+                    <div class="admin__field-control">
+                        <input name="length[]" type="text" class="admin__control-text input-text required-entry" data-validate="{required:true, 'validate-number':true}" >
+                    </div>
+                </div>
+                <div class="admin__field custom_div">
+                    <label for="width" class="admin__field-label"><?= $block->escapeHtml(__('Width')); ?></label>
+                    <div class="admin__field-control">
+                        <input name="width[]" type="text" class="admin__control-text input-text required-entry" data-validate="{required:true, 'validate-number':true}" >
+                    </div>
+                </div>
+                <div class="admin__field custom_div">
+                    <label for="height" class="admin__field-label"><?= $block->escapeHtml(__('Height')); ?></label>
+                    <div class="admin__field-control">
+                        <input name="height[]" type="text" class="admin__control-text input-text required-entry" data-validate="{required:true, 'validate-number':true}" >
+                    </div>
+                </div>
+                <div class="admin__field custom_div">
+                    <label for="is_stackable" class="admin__field-label"><?= $block->escapeHtml(__('Stackable?')); ?></label>
+                    <div class="admin__field admin__field-option" style="text-align: center">
+                        <input name="is_stackable[]" type="checkbox"  class="admin__control-checkbox" value="1"><label class="admin__field-label" for="is_stackable" ></label>
+                    </div>
+                </div>
+                    <div class="admin__field custom_div_action">
+                        <label for="add_delete" class="admin__field-label"><?= $block->escapeHtml(__('Action')); ?></label>
+                        <div class="admin__field-control">
+                            <div id="add_new" class="action-default scalable edit primary"><?= $block->escapeHtml(__('Add Package')); ?></div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="append_rows" style="margin-bottom: 20px; float: left;"></div>
+            </div>
+            <div class="side-col">
+                <div class="service_section">
+                    <h3><?= $block->escapeHtml(__('Service Options')); ?></h3>
+                    <div class="admin__field custom_div">
+                        <div class="admin__field admin__field-option" style="text-align: center">
+                            <input name="signature" type="checkbox" id="signature" class="admin__control-checkbox" value="1"><label for="signature" class="admin__field-label"><?= $block->escapeHtml(__('Signature Required?')); ?></label>
+                        </div>
+                    </div>
+                    <div class="admin__field custom_div">
+                        <div class="admin__field admin__field-option" style="text-align: center">
+                            <input name="residential_signature" type="checkbox" id="residential_signature" class="admin__control-checkbox" value="1"><label for="residential_signature" class="admin__field-label"><?= $block->escapeHtml(__('Residential Signature')); ?></label>
+                        </div>
+                    </div>
+                    <div class="admin__field custom_div">
+                        <div class="admin__field admin__field-option" style="text-align: center">
+                            <input name="saturday_delivery" type="checkbox" id="saturday_delivery" class="admin__control-checkbox" value="1"><label for="saturday_delivery" class="admin__field-label"><?= $block->escapeHtml(__('Saturday Delivery')); ?></label>
+                        </div>
+                    </div>
+                </div>
+                <button title="Fetch Carrier Results" id="order-view-add-quote" type="button" class="action-default scalable edit primary">   <span><?= $block->escapeHtml(__('Fetch Carrier Results')); ?></span>
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <div class="smart-shipping-box">
+        <form id="order-view-save-quote-form" autocomplete="off" data-mage-init='{"validation": {}}' method="post">
+            <input type="hidden" name="current_order_id" value="<?php echo $block->getCurrentOrderId() ?>" />
+            <input type="hidden" name="requote_estimate" id="requote_estimate" value='' >
+            <div id="ajaxresponse" class="main-col">
+                <table id="carrier_data" style="width:80%; float: left;" >
+                <thead>
+                  <tr>
+                    <th><?= $block->escapeHtml(__('Select')); ?></th>
+                    <th><?= $block->escapeHtml(__('Carrier')); ?></th>
+                    <th><?= $block->escapeHtml(__('Transit Days')); ?></th>
+                    <th><?= $block->escapeHtml(__('Total Charges')); ?></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="result_data" style="display: contents"></tr>
+                  <tr class="no_data">
+                    <td colspan="4"><?= $block->escapeHtml(__('No Records')); ?></td>
+                  </tr>
+                  
+                </tbody>
+                </table>
+                
+            </div>
+            <div class="side-col">
+                <button title="Complete This Shipment Now" id="order-view-save-quote" type="button" class="action-default scalable edit primary" style="display:none">   <span><?= $block->escapeHtml(__('Save This Quote Now')); ?></span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+<style>
+    .append_rows input{margin-right: 4px;}
+    .default_package{float: left; width: 100%;}
+    #order-view-add-quote-form{
+        border: 1px solid;
+        padding: 11px;
+    }
+    #order-view-add-quote-form .admin__field.custom_option{
+        float: left;
+        width: 20%;
+        margin-top: 30px;
+    }
+    #order-view-add-quote-form .admin__field.custom_div_action, #order-view-add-quote-form .admin__field.custom_div_add{
+        float: left;
+        width: 17%;
+        margin-top: 0px;
+        margin-right: 5px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    #order-view-add-quote-form .admin__field.custom_div{
+        float: left;
+        width: 9%;
+        margin-top: 0px;
+        margin-right: 5px;
+       margin-bottom: 20px;
+       text-align: center;
+    }#order-view-add-quote-form .admin__field.custom_div_option{
+        float: left;
+        width: 20%;
+        margin-top: 0px;
+        margin-right: 5px;
+       margin-bottom: 20px;
+    }
+    .borderR{
+        border-color: red;
+        border-width: thin;
+    }
+    #carrier_data table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    #carrier_data td, #carrier_data th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    #carrier_data .no_data td{
+        text-align: center;
+    }
+    #carrier_data tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    .service_section h3{
+        text-align: center;
+        border-bottom: 1px solid;
+        margin-bottom: 0px;
+    }
+    #order-view-add-quote-form .service_section .admin__field.custom_div{
+        float: left;
+        width: 95%;
+        text-align: left;
+        margin-left: 5px;
+    }
+    .service_section{
+        float: left;
+        width: 95%;
+        border: 1px solid;
+    }
+    .service_section .admin__field.admin__field-option{
+        text-align: left !important;
+    }
+    #order-view-add-quote{
+        margin-top: 10px;
+        margin-bottom: 10px; 
+    }
+    .smart-shipping-box{
+        border: 1px solid;
+        float: left;
+        width: 100%;
+        margin-top: 20px;
+        padding: 10px;
+    }
+    #add_new{
+        background-color: #eb5202;
+        border-color: #eb5202;
+        color: #fff;
+        text-shadow: 1px 1px 0 rgba(0,0,0,0.25);
+        cursor: pointer;
+    }
+    #remove_new{
+        cursor: pointer;
+    }
+
+</style>
+
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function (
+            $,
+            modal
+        ) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: 'RE-QUOTE SMARTT SHIPPING',
+                modalClass: 'custom-modal',
+                buttons: [{
+                    text: $.mage.__('Close'),
+                    class: '',
+                    click: function () {
+                        this.closeModal();
+                     }
+                }]
+            };
+
+            var popup = modal(options, $('#popup-modal'));
+            $("#sendordersms").click(function() {
+                $("#popup-modal").modal('openModal');
+            });
+            
+
+            $(document).on('click', '#remove_new', function(e) {
+               e.preventDefault();
+               $(this).closest('.default_package').remove();
+               return false;
+            });
+
+             $("#add_new").click(function () { 
+
+                $("#maintable").each(function () {
+                 var tds = '<div class="default_package"><div class="admin__field custom_div_option"><div class="admin__field-control"><select name="package_id[]" value="" class="admin__control-text input-text required-entry" data-validate="{required:true, "validate-number":true}" ><?php
+                    foreach ($block->getPackageId() as $value) {?>
+                                   <option value="<?php echo $value['value']; ?>"><?php echo $value['label']; ?></option><?php } ?>
+                            ?> </select> </div></div>';
+                    tds += '<div class="admin__field custom_div"><div class="admin__field-control"><input name="qty[]" type="text" class="admin__control-text input-text required-entry"  data-validate="{required:true, "validate-number":true}" ></div></div>';
+                    tds += '<div class="admin__field custom_div"><div class="admin__field-control"><input name="weight[]" type="text" class="admin__control-text input-text required-entry"  data-validate="{required:true, "validate-number":true}" ></div></div>';
+                    tds += '<div class="admin__field custom_div"><div class="admin__field-control"><input name="length[]" type="text" class="admin__control-text input-text required-entry"  data-validate="{required:true, "validate-number":true}" ></div></div>';
+                    tds += '<div class="admin__field custom_div"><div class="admin__field-control"><input name="width[]" type="text" class="admin__control-text input-text required-entry"  data-validate="{required:true, "validate-number":true}" ></div></div>';
+                    tds += '<div class="admin__field custom_div"><div class="admin__field-control"><input name="height[]" type="text" class="admin__control-text input-text required-entry"  data-validate="{required:true, "validate-number":true}" ></div></div>';
+                    tds += '<div class="admin__field custom_div"><div class="admin__field admin__field-option" style="text-align: center"><input name="is_stackable[]" type="checkbox"   class="admin__control-checkbox" value="1"><label class="admin__field-label" for="is_stackable"></label></div></div>';
+                    tds += '<div class="admin__field custom_div_add"><div class="admin__field-control"><div id="remove_new" class="action-default scalable edit primary">Remove</div></div></div></div>';
+                    
+                    $(".append_rows").append(tds);
+                });
+            });
+
+            $('#order-view-save-quote').click(function () {
+                var dataForm = $('#order-view-save-quote-form');
+                var param = dataForm.serialize();
+
+                var flag = false;
+
+                $('#order-view-save-quote-form').find( 'input[type="radio"]' ).each(function() {
+                    if ( $(this).val() == '' ) {
+                        flag = true;
+                    } 
+                });
+                if(flag == false){
+                    $.ajax({
+                        showLoader: true,
+                        context: '#ajaxresponse',
+                        url: '<?php echo $block->getSaveFormUrl(); ?>',
+                        type: "POST",
+                        data: {
+                            param: param,
+                            form_key:window.FORM_KEY
+                        },
+                    }).done(function (data) {
+                        $('.result_data').html('');
+                        if(data.status == 1){
+                            $('.no_data').css('display', 'contents');
+                            $(".modal-footer").click();
+                           setTimeout(function () {
+                                
+                            }, 2000);
+                           location.reload();
+                           $('#order-view-save-quote').css('display', 'none');
+                        }
+                        
+                    });
+                }
+                
+            });
+
+            /* clear shipping carrier data */
+            $(document).on('change','input[type="text"], #order-view-add-quote-form :checkbox, .custom_div_option select',function(){
+                  $('.no_data').css('display', 'contents');
+                  $('.result_data').html('');
+            });
+            
+
+            $('#order-view-add-quote').click(function () {
+                var flag = false;
+
+                $('#order-view-add-quote-form').find( 'input[type="text"]' ).each(function() {
+                    if ( $(this).val() == '' ) {
+                        $(this).addClass('borderR').focus();
+                        flag = true;
+                    } else {
+                        $(this).removeClass('borderR');
+                    }
+                });
+
+                $('#order-view-add-quote-form').find( 'select[type="option"]' ).each(function() {
+                    if ( $(this).val() == '' ) {
+                        $(this).addClass('borderR').focus();
+                        flag = true;
+                    } else {
+                        $(this).removeClass('borderR');
+                    }
+                });
+
+                if(flag == false){
+                    var dataForm = $('#order-view-add-quote-form');
+                    var param = dataForm.serialize();
+                   
+                    $.ajax({
+                        showLoader: true,
+                        context: '.result_data',
+                        url: '<?php echo $block->getFormUrl(); ?>',
+                        type: "POST",
+                        data: {
+                            param: param,
+                            form_key:window.FORM_KEY
+                        },
+                    }).done(function (data) {
+                        $('.result_data').html('');
+
+                        if(data.status == 1){
+                            $("#requote_estimate").val(JSON.stringify(data.Data));
+                            var res = '';
+                            $.each(data.Data, function( index, value ) {
+                                var requote_carrier = value.CarrierName+'^^^^'+value.TransitDays+'^^^^'+value.Price+'^^^^'+value.CarrierId;
+                                 res += '<tr>';
+                                 res += '<td><input type="radio" name="requote_carrier" value="'+requote_carrier+'"></td>';
+                                if(value.ServiceName !== null){
+                                    res += '<td>'+value.CarrierName+' ('+value.ServiceName+')'+'</td>';   
+                                }else{
+                                    res += '<td>'+value.CarrierName+'</td>';   
+                                }
+                                 
+                                 res += '<td>'+value.TransitDays+'</td>';
+                                 res += '<td>'+value.Price+'</td>';
+                                 res += '</tr>';
+                            });
+                            $('.result_data').append(res);
+                            $('.no_data').css('display', 'none');
+                            $('#order-view-save-quote').css('display', 'block');
+                        } else {
+                            $('.no_data').css('display', 'contents');
+                        }
+                        
+                    });
+                }
+                
+            });
+
+        }
+
+    );
+   
+
+</script>

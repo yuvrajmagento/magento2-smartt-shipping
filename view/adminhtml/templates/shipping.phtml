@@ -1,0 +1,92 @@
+<?php
+$order = $block->getOrder();
+if ($order->getState()!='new') {
+    return;
+}
+?>
+<section class="admin__page-section order-view-customblock">
+    <div class="admin__page-section-title">
+        <span class="title"><?php echo __("Change Shipping Amount");?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item">
+                        <div class="admin__page-section-item-title">
+                <span class="title"><?php echo __("Change Shipping Amount");?></span>
+            </div>
+            <div class="admin__page-section-item-content">
+                <form id="shippingchangeform" method="GET" action="<?php echo $block->getFormAction();?>"  data-mage-init='{"validation":{}}'>
+                    <div style="margin:10px 0px;display: none;">
+                    <label><?php echo __("Shipping Method :");?> </label>
+                        <select name="shipping_method_new" id="shipping_method_new">
+                            <?php
+                            foreach ($block->getActiveCarriers() as $key => $ship) {
+                                $selected ='';
+                                if (strpos($order->getShippingMethod(), $ship['value']) !==false) {
+                                    $selected = 'selected="selected"';
+                                } else {
+                                    $selected = '';
+                                }
+                                ?>
+                                <option value="<?php echo $ship['value'];?>" <?php echo $selected;?> ><?php echo $ship['label'];?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="shipping_carrier_block"  style="margin:10px 0px;">
+                    <label><?php echo __("Change Shipping Amount");?>Shipping Method Carrier : </label>
+                        <select name="shipping_carrier_new" id="shipping_carrier_new">
+                        <?php
+                        if ($order->getData('smart_shipping_carrier_estimate')) {
+                            $estimateshipping = json_decode($order->getData('smart_shipping_carrier_estimate'), true);
+                            foreach ($estimateshipping as $key => $shippingitem) {
+                                $selected ='';
+                                if ($order->getShippingMethod()=='smartshipping_'.$shippingitem['CarrierId']) {
+                                    $selected = 'selected="selected"';
+                                } else {
+                                    $selected = '';
+                                }
+                                ?>
+                                    <option value="<?php echo $shippingitem['CarrierId'].'|'.$shippingitem['CarrierName'];?>" <?php echo $selected;?> ><?php echo $shippingitem['CarrierName'].' - '.$shippingitem['ServiceName'].' - '.$shippingitem['Price'];?></option>
+                                    <?php
+                            }
+                        }
+                        ?>
+                        </select>
+                    </div>
+                    <div class="field shipping_amount_new required" style="margin:10px 0px;">
+                    <label><?php echo __("Shipping Amount :");?> </label>
+                    <input type="text" name="shipping_amount_new" value="" data-validate="{required:true}"/>
+                    </div>
+                    <div><small><?php echo __("Note: Customer will be notified to make payment.");?></small></div>
+                    <div class="field" style="margin:10px 0px;">
+                        <button id="customshippingform" title="Submit shippingform" type="button" class="" type="submit">
+                            <span><?php echo __("Save");?></span>
+                        </button>
+                    </div>
+                </form>  
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    require(['jquery'],function($){
+        $('#shipping_method_new').change(function(){
+            if($(this).val()=='smartshipping'){
+                $(".shipping_carrier_block").show();
+            } else {
+                $(".shipping_carrier_block").hide();
+            }
+        });
+        $(document).ready(function(){
+            if($('#shipping_method_new').val()=='smartshipping') {
+                $(".shipping_carrier_block").show();
+            } else {
+                $(".shipping_carrier_block").hide();
+            }
+        });
+        $('#customshippingform').click(function(){
+            $("#shippingchangeform").submit();
+        });
+    });
+</script>

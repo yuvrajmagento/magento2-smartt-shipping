@@ -1,0 +1,126 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	
+	<table comment="smart_shipping_dispatch_details Table" engine="innodb" name="smart_shipping_dispatch_details" resource="default">
+		
+		<column comment="Id" identity="true" name="id" nullable="false" padding="6" unsigned="true" xsi:type="bigint"/>
+		<constraint referenceId="PRIMARY" xsi:type="primary">
+			<column name="id"/>
+		</constraint>
+
+		<column name="customer_id" nullable="true" xsi:type="int"/>
+		<column name="order_id" nullable="true" xsi:type="text"/>
+		<column name="magento_shipment_id" nullable="true" xsi:type="text"/>
+		<column name="status" nullable="true" xsi:type="text"/>
+		<column name="is_cancelled" nullable="true" xsi:type="smallint"/>
+		<column name="shiptype" nullable="true" xsi:type="text"/>
+		<column name="account_id" nullable="true" xsi:type="text"/>
+		<column name="shipment_id" nullable="true" xsi:type="text"/>
+		<column name="shipper_name" nullable="true" xsi:type="text"/>
+		<column name="carrier_name" nullable="true" xsi:type="text"/>
+		<column name="tracking_number" nullable="true" xsi:type="text"/>
+		<column name="transit_days" nullable="true" xsi:type="text"/>
+		<column name="qty" nullable="true" xsi:type="text"/>
+		<column name="shipment_weight" nullable="true" xsi:type="decimal"/>
+		<column name="smartt_bl_number" nullable="true" xsi:type="text"/>
+		<column name="po" nullable="true" xsi:type="text"/>
+		<column name="shipment_date" nullable="true" xsi:type="text"/>
+		<column name="bol_path" nullable="true" xsi:type="text"/>
+		<column name="shipment_guid" nullable="true" xsi:type="text"/>
+		<column name="pickup_number" nullable="true" xsi:type="text"/>
+		<column name="shipment_customer_id" nullable="true" xsi:type="text"/>
+		<column name="shipment_shipper_id" nullable="true" xsi:type="text"/>
+		<column name="tracking_url" nullable="true" xsi:type="text"/>
+		<column name="requote_carriername" nullable="true" xsi:type="text"/>
+		<column name="requote_transitdays" nullable="true" xsi:type="text"/>
+		<column name="requote_price" nullable="true" xsi:type="text"/>
+		<column name="requote_carrierid" nullable="true" xsi:type="int"/>
+		<column name="requote_estimate" nullable="true" xsi:type="text"/>
+		<column name="requote_data" nullable="true" xsi:type="text"/>
+		<column name="isrequote" nullable="true" xsi:type="boolean"/>
+		<column name="dispatch_date" nullable="true" xsi:type="text"/>
+		<column name="dispatch_time" nullable="true" xsi:type="text"/>
+	</table>
+
+	<table comment="smart_shipping_product_estimate_price Table" engine="innodb" name="smart_shipping_product_estimate_price" resource="default">
+		
+		<column comment="Smart shipping entity Id" identity="true" name="id" nullable="false" padding="6" unsigned="true" xsi:type="bigint"/>
+		<constraint referenceId="PRIMARY" xsi:type="primary">
+			<column name="id"/>
+		</constraint>
+
+		<column name="product_id" nullable="true" xsi:type="int"/>
+		
+	</table>
+
+	<table comment="quote_item Table" engine="innodb" name="quote_item" resource="default">
+		
+		<column name="shipping_height" nullable="false" xsi:type="text"/>
+		<column name="shipping_width" nullable="false" xsi:type="text"/>
+		<column name="shipping_length" nullable="false" xsi:type="text"/>
+		<column name="shipping_weight" nullable="false" xsi:type="text"/>
+		<column name="package_id" nullable="false" xsi:type="text"/>
+		<column name="recalculate_qty" nullable="false" xsi:type="text"/>
+		
+	</table>
+
+	<table comment="sales_order_item Table" engine="innodb" name="sales_order_item" resource="default">
+		
+		<column name="shipping_height" nullable="false" xsi:type="text"/>
+		<column name="shipping_width" nullable="false" xsi:type="text"/>
+		<column name="shipping_length" nullable="false" xsi:type="text"/>
+		<column name="shipping_weight" nullable="false" xsi:type="text"/>
+		<column name="package_id" nullable="false" xsi:type="text"/>
+		<column name="recalculate_qty" nullable="false" xsi:type="text"/>
+		
+	</table>
+
+	<table comment="smart_city_data Table" engine="innodb" name="smart_city_data" resource="default">
+		
+		<column comment="City Item Id" identity="true" name="city_item_id" nullable="false" padding="6" unsigned="true" xsi:type="int"/>
+		<constraint referenceId="PRIMARY" xsi:type="primary">
+			<column name="city_item_id"/>
+		</constraint>
+
+		<column name="city_id" nullable="false" xsi:type="int"/>
+		<column name="city_name" nullable="false" xsi:type="text"/>
+
+	</table>
+
+	<table comment="smart_countries_data Table" engine="innodb" name="smart_countries_data" resource="default">
+		
+		<column comment="Countries Item Id" identity="true" name="countries_item_id" nullable="false" padding="6" unsigned="true" xsi:type="int"/>
+		<constraint referenceId="PRIMARY" xsi:type="primary">
+			<column name="countries_item_id"/>
+		</constraint>
+
+		<column name="country_id" nullable="false" xsi:type="int"/>
+		<column name="country_name" nullable="false" xsi:type="text"/>
+	
+	</table>
+
+	<table comment="smart_state_data Table" engine="innodb" name="smart_state_data" resource="default">
+		
+		<column comment="State Id" identity="true" name="state_item_id" nullable="false" padding="6" unsigned="true" xsi:type="int"/>
+		<constraint referenceId="PRIMARY" xsi:type="primary">
+			<column name="state_item_id"/>
+		</constraint>
+
+		<column name="state_id" nullable="false" xsi:type="int"/>
+		<column name="state_name" nullable="false" xsi:type="text"/>
+	
+	</table>
+
+	<table comment="sales_order Table" engine="innodb" name="sales_order" resource="default">
+		
+		<column name="smart_shipment_id" nullable="false" xsi:type="int"/>
+		<column name="smart_shipping_carrier_estimate" nullable="false" xsi:type="text"/>
+	
+	</table>
+	<table comment="quote Table" engine="innodb" name="quote" resource="default">
+		
+		<column name="smart_shipping_carrier_estimate" nullable="false" xsi:type="int"/>
+	
+	</table>
+
+</schema>

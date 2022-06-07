@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="controller_action_predispatch_adminhtml_order_shipment_save">
+        <observer name="controller_action_predispatch_adminhtml_order_shipment_save" instance="Smarttshipping\Shipping\Observer\Adminhtml\Createdispatch" />
+    </event>
+    <!-- <event name="sales_order_shipment_save_before">
+        <observer name="smart_sales_order_shipment_save_before" instance="Smarttshipping\Shipping\Observer\Adminhtml\Createdispatch" />
+    </event> -->
+    <event name="sales_order_shipment_save_after">
+        <observer name="smart_sales_order_shipment_save_after" instance="Smarttshipping\Shipping\Observer\Adminhtml\CreateShipmentAfter" />
+    </event>
+</config>
