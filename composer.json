@@ -3,15 +3,23 @@
   "description": "extension for magento 2",
   "type": "magento2-module",
   "version": "0.0.3",
-  "homepage": "https://gitlab.com/lalit.magneto/magento2-Smarttshippingt-shipping",
    "license": [
     "OSL-3.0",
     "AFL-3.0"
   ],
-  "repositories": {"type": "vcs","url": "https://gitlab.com/lalit.magneto/magento2-Smarttshippingt-shipping"},
   "require": {
-    "php": ">=7.3|^8.1"
+    "php": "~5.5.0|~5.6.0|^7.0",
   },
+   "authors": [
+        {
+            "name": "Magento It",
+            "email": "info@magnetoitsolutions.com"
+        },
+        {
+            "name": "Yuvraj Raulji",
+            "email": "yuvraj.magneto@gmail.com"
+        }
+    ],
   "autoload": {
     "files": [
       "registration.php"
