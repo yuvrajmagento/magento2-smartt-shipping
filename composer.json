@@ -2,7 +2,7 @@
   "name": "smarttshipping/smart-shipping",
   "description": "extension for magento 2",
   "type": "magento2-module",
-  "version": "0.0.3",
+  "version": "1.0.2",
    "license": [
     "OSL-3.0",
     "AFL-3.0"
