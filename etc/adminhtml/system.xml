@@ -34,9 +34,9 @@
                     <label>Price</label>
                     <validate>validate-number validate-zero-or-greater</validate>
                 </field>
-				<field id="allowed_methods" translate="label" type="multiselect" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                <field id="allowed_methods" translate="label" type="multiselect" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
                     <label>Allowed Methods</label>
-                    <source_model>Smart\Shipping\Model\Config\Source\Method</source_model>
+                    <source_model>Smarttshipping\Shipping\Model\Config\Source\Method</source_model>
                     <can_be_empty>1</can_be_empty>
                 </field>
                 <field id="sallowspecific" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0">
@@ -69,7 +69,7 @@
                 <label>General Configuration</label>
                 <field id="package_id" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Default Package Type</label>
-                    <source_model>Smart\Shipping\Model\Config\Source\Options</source_model>
+                    <source_model>Smarttshipping\Shipping\Model\Config\Source\Options</source_model>
                     <comment>(Used for SMARTT Shipping plugin)</comment>
                 </field>
                 <field id="is_stackable" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">

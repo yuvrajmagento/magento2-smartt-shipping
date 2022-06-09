@@ -150,6 +150,8 @@ class Smartshipping extends \Magento\Shipping\Model\Carrier\AbstractCarrier impl
         $tracking = $this->_trackStatusFactory->create();
         $tracking->setCarrier($this->_code);
         $tracking->setTracking($trackingNumber);
+		$carrierTitle = '';
+		$trackingUrl = '';
 
         try {
             if ($trackingNumber) {
