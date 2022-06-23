@@ -43,30 +43,16 @@ class Options extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
     public function getAllOptions()
     {
         $packData[] =  ['label'=>'Select Options', 'value'=>''];
-
-        // $apiKey = $this->helper->getApikey();
-        // $apiUrl = $this->helper->getApiBaseUrl();
-
-        // if(!empty($apiKey) && empty(!$apiUrl)){
-        //     $packages = $this->getStaticData();
-        //     if(is_array($packages))
-        //     {
-        //         foreach ($packages as $key => $value) {
-        //             $packData[] = ['label'=>$value, 'value'=>$key];
-        //         }
-        //     }
-        // }
-
-        
-        $packages = $this->_smartapi->getAllPackages();
-        if (is_array($packages)) {
-            foreach ($packages['Packages'] as $key => $value) {
-                $packData[] = ['label'=>$value['PackageTypeName'], 'value'=>$value['PackageID']];
+        try {
+            $packages = $this->_smartapi->getAllPackages();
+            if (is_array($packages)) {
+                foreach ($packages['Packages'] as $key => $value) {
+                    $packData[] = ['label'=>$value['PackageTypeName'], 'value'=>$value['PackageID']];
+                }
             }
+        }catch(\Exception $e){
+            
         }
-       
-
-        
         $this->_options = $packData;
         return $this->_options;
     }
