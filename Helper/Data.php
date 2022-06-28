@@ -467,6 +467,7 @@ class Data extends AbstractHelper
             }
 
             $shippingmethodarray['Success'] = 1;
+            $shippingmethodarray = $res;
         } else {
             $shippingmethodarray['Message'] = $res['Message'];
         }
