@@ -43,84 +43,63 @@
 	</table>
 
 	<table comment="smart_shipping_product_estimate_price Table" engine="innodb" name="smart_shipping_product_estimate_price" resource="default">
-		
 		<column comment="Smart shipping entity Id" identity="true" name="id" nullable="false" padding="6" unsigned="true" xsi:type="bigint"/>
 		<constraint referenceId="PRIMARY" xsi:type="primary">
 			<column name="id"/>
 		</constraint>
-
 		<column name="product_id" nullable="true" xsi:type="int"/>
-		
 	</table>
 
 	<table comment="quote_item Table" engine="innodb" name="quote_item" resource="default">
-		
 		<column name="shipping_height" nullable="false" xsi:type="text"/>
 		<column name="shipping_width" nullable="false" xsi:type="text"/>
 		<column name="shipping_length" nullable="false" xsi:type="text"/>
 		<column name="shipping_weight" nullable="false" xsi:type="text"/>
 		<column name="package_id" nullable="false" xsi:type="text"/>
 		<column name="recalculate_qty" nullable="false" xsi:type="text"/>
-		
 	</table>
 
 	<table comment="sales_order_item Table" engine="innodb" name="sales_order_item" resource="default">
-		
 		<column name="shipping_height" nullable="false" xsi:type="text"/>
 		<column name="shipping_width" nullable="false" xsi:type="text"/>
 		<column name="shipping_length" nullable="false" xsi:type="text"/>
 		<column name="shipping_weight" nullable="false" xsi:type="text"/>
 		<column name="package_id" nullable="false" xsi:type="text"/>
 		<column name="recalculate_qty" nullable="false" xsi:type="text"/>
-		
 	</table>
 
 	<table comment="smart_city_data Table" engine="innodb" name="smart_city_data" resource="default">
-		
 		<column comment="City Item Id" identity="true" name="city_item_id" nullable="false" padding="6" unsigned="true" xsi:type="int"/>
 		<constraint referenceId="PRIMARY" xsi:type="primary">
 			<column name="city_item_id"/>
 		</constraint>
-
 		<column name="city_id" nullable="false" xsi:type="int"/>
 		<column name="city_name" nullable="false" xsi:type="text"/>
-
 	</table>
 
 	<table comment="smart_countries_data Table" engine="innodb" name="smart_countries_data" resource="default">
-		
 		<column comment="Countries Item Id" identity="true" name="countries_item_id" nullable="false" padding="6" unsigned="true" xsi:type="int"/>
 		<constraint referenceId="PRIMARY" xsi:type="primary">
 			<column name="countries_item_id"/>
 		</constraint>
-
 		<column name="country_id" nullable="false" xsi:type="int"/>
 		<column name="country_name" nullable="false" xsi:type="text"/>
-	
 	</table>
 
 	<table comment="smart_state_data Table" engine="innodb" name="smart_state_data" resource="default">
-		
 		<column comment="State Id" identity="true" name="state_item_id" nullable="false" padding="6" unsigned="true" xsi:type="int"/>
 		<constraint referenceId="PRIMARY" xsi:type="primary">
 			<column name="state_item_id"/>
 		</constraint>
-
 		<column name="state_id" nullable="false" xsi:type="int"/>
 		<column name="state_name" nullable="false" xsi:type="text"/>
-	
 	</table>
 
 	<table comment="sales_order Table" engine="innodb" name="sales_order" resource="default">
-		
 		<column name="smart_shipment_id" nullable="false" xsi:type="int"/>
 		<column name="smart_shipping_carrier_estimate" nullable="false" xsi:type="text"/>
-	
 	</table>
 	<table comment="quote Table" engine="innodb" name="quote" resource="default">
-		
 		<column name="smart_shipping_carrier_estimate" nullable="false" xsi:type="int"/>
-	
 	</table>
-
 </schema>

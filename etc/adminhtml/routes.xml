@@ -4,7 +4,6 @@
       <route id="smartshipping" frontName="smartshipping">
           <module name="Smart_Shipping"/>
       </route>
-      
       <route id="getrates" frontName="getrates">
         <module name="Smart_Shipping" before="Magento_Backend" />
      </route>
