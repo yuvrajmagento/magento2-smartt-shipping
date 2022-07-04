@@ -3,7 +3,5 @@
 	<type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
         <plugin name="smart_shipping_quote_to_order_item" type="Smarttshipping\Shipping\Plugin\QuoteToOrderItem"/>
     </type>
-
     <preference for="Magento\Sales\Model\Order\Email\Sender\ShipmentSender" type="Smarttshipping\Shipping\Model\Order\Email\Sender\ShipmentSender" />
-
 </config>
